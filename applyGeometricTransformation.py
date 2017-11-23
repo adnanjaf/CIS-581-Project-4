@@ -29,13 +29,20 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
   for i in range(col):
       initX=startX[:,i]
       initY=startY[:,i]
+      initX=initX[initX!=-1]
+      initY=initY[initY!=-1]
       newX=newXs[:,i]
       newY=newYs[:,i]
+      newX=newX[newX!=-1]
+      newY=newY[newY!=-1]
+      
       oldPos=np.matrix.transpose(np.vstack((initX,initY)))
       newPos=np.matrix.transpose(np.vstack((newX,newY)))
       
       t = skimage.transform.SimilarityTransform()
       t.estimate(oldPos, newPos)
       
+      coord=np.vstack((initX,initY,np.ones(len(newY))))
+      newCoord=np.dot(t.params,coord)
       
-  return t.params
+  return newCoord
