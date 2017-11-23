@@ -16,7 +16,7 @@ from estimateAllTranslation import estimateAllTranslation
 from estimateFeatureTranslation import estimateFeatureTranslation
 from applyGeometricTransformation import applyGeometricTransformation
 
-get_ipython().magic('rest -sf')
+#get_ipython().magic('rest -sf')
 
 frameSet=[]
 video=cv2.VideoCapture('MarquesBrownlee.mp4')
@@ -31,7 +31,7 @@ bbox=detectFace(frameSet[0])
 gray=cv2.cvtColor(frameSet[0],cv2.COLOR_BGR2GRAY)
 x,y=getFeatures(gray,bbox)
 newXs,newYs =estimateAllTranslation(x,y,frameSet[0],frameSet[1])
-Xs, Ys, newbbox=applyGeometricTransformation(x,y,newXs,newYs,bbox)
+para=applyGeometricTransformation(x,y,newXs,newYs,bbox)
 
 #plt.imshow(grad, cmap='gray')
 #cv2.imshow('fig1',frameSet[0])

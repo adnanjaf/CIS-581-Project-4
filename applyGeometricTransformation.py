@@ -24,5 +24,18 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
   import skimage.transform
   
   
-  [row,col]=np.asarray(startX.shape)  
-  return Xs, Ys, newbbox
+  [row,col]=np.asarray(startX.shape)
+  
+  for i in range(col):
+      initX=startX[:,i]
+      initY=startY[:,i]
+      newX=newXs[:,i]
+      newY=newYs[:,i]
+      oldPos=np.matrix.transpose(np.vstack((initX,initY)))
+      newPos=np.matrix.transpose(np.vstack((newX,newY)))
+      
+      t = skimage.transform.SimilarityTransform()
+      t.estimate(oldPos, newPos)
+      
+      
+  return t.params
