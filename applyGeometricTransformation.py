@@ -44,5 +44,7 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
       
       coord=np.vstack((initX,initY,np.ones(len(newY))))
       newCoord=np.dot(t.params,coord)
-      
-  return newCoord
+      diff=np.vstack((newX,newY))-newCoord[0:2,:]
+      diff=diff*diff
+      dist=diff[0,:]+diff[1,:]
+  return dist

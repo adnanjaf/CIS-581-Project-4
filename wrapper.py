@@ -16,7 +16,6 @@ from estimateAllTranslation import estimateAllTranslation
 from estimateFeatureTranslation import estimateFeatureTranslation
 from applyGeometricTransformation import applyGeometricTransformation
 
-#get_ipython().magic('rest -sf')
 
 frameSet=[]
 video=cv2.VideoCapture('MarquesBrownlee.mp4')
