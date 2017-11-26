@@ -25,7 +25,11 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
   
   
   [row,col]=np.asarray(startX.shape)
-  
+  [rb,cb,db]=np.asarray(bbox.shape)
+  newbbox=np.zeros([rb,cb,db])
+  xlist=[]
+  ylist=[]
+  numPt=0
   for i in range(col):
       initX=startX[:,i]
       initY=startY[:,i]
@@ -47,4 +51,18 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
       diff=np.vstack((newX,newY))-newCoord[0:2,:]
       diff=diff*diff
       dist=diff[0,:]+diff[1,:]
-  return dist
+      newX=newX[dist<=16]
+      newY=newY[dist<=16]
+      if len(newX)>numPt:
+          numPt=len(newX)
+      xlist.append(newX)
+      ylist.append(newY)
+      boxcoord=np.vstack((np.matrix.transpose(bbox[i,:,:]),np.ones(4)))
+      newBoxCoord=np.dot(t.params,boxcoord)
+      newbbox[i,:,:]=np.matrix.transpose(newBoxCoord[0:2,:])
+  Xs=np.ones([numPt,col])*-1
+  Ys=np.ones([numPt,col])*-1
+  for k in range(col):
+      Xs[0:len(xlist[k]),k]=xlist[k]
+      Ys[0:len(ylist[k]),k]=ylist[k]
+  return Xs,Ys,newbbox

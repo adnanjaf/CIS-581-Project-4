@@ -30,7 +30,7 @@ bbox=detectFace(frameSet[0])
 gray=cv2.cvtColor(frameSet[0],cv2.COLOR_BGR2GRAY)
 x,y=getFeatures(gray,bbox)
 newXs,newYs =estimateAllTranslation(x,y,frameSet[0],frameSet[1])
-para=applyGeometricTransformation(x,y,newXs,newYs,bbox)
+Xs,Ys,newbbox=applyGeometricTransformation(x,y,newXs,newYs,bbox)
 
 #plt.imshow(grad, cmap='gray')
 #cv2.imshow('fig1',frameSet[0])
