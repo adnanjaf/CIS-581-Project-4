@@ -52,7 +52,7 @@ plt.close()
 newFrameSet.append(img);
 
 #getting features and transforming 
-for k in range(1,10):
+for k in range(1,15):
     
     newXs,newYs =estimateAllTranslation(x,y,frameSet[k-1],frameSet[k])
     Xs,Ys,newbbox=applyGeometricTransformation(x,y,newXs,newYs,bbox)
@@ -75,7 +75,7 @@ for k in range(1,10):
     bbox=newbbox
     
 [height,width,layer]=np.asarray(newFrameSet[0].shape)
-outPut=cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'MP4V'),3,(width,height))
+outPut=cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'MP4V'),5,(width,height))
 for m in range (len(newFrameSet)):
     outPut.write(newFrameSet[m].astype('uint8'))
     cv2.destroyAllWindows()
