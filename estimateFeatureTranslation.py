@@ -45,7 +45,7 @@ def estimateFeatureTranslation(startX, startY, Ix, Iy, img1, img2):
   lfM=np.array([[np.sum(IxVal*IxVal),np.sum(IxVal*IyVal)],[np.sum(IxVal*IyVal),np.sum(IyVal*IyVal)]])
   rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
   inverse=np.linalg.inv(lfM)
-  disp=np.dot(inverse,rtM)
+  disp=np.dot(inverse,-1*rtM)
   u=disp[0,0]
   v=disp[1,0]
 #  IxVal=interFIx(np.ravel(xv))

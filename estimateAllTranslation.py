@@ -35,8 +35,8 @@ def estimateAllTranslation(startXs, startYs, img1, img2):
   gradx2=scipy.signal.convolve2d(gray2,Ix,mode='same',boundary='symm')
   grady2=scipy.signal.convolve2d(gray2,Iy,mode='same',boundary='symm')
   gradMap2=np.sqrt(gradx2*gradx2+grady2*grady2)
-  gray1smooth=scipy.ndimage.filters.gaussian_filter(gray1, 5)
-  gray2smooth=scipy.ndimage.filters.gaussian_filter(gray2, 5)
+  gray1smooth=scipy.ndimage.filters.gaussian_filter(gray1, 1)
+  gray2smooth=scipy.ndimage.filters.gaussian_filter(gray2, 1)
   Ix=(gradx1+gradx2)/2
   Iy=(grady1+grady2)/2
   startXs=startXs.astype(int)
