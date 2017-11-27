@@ -12,9 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 from detectFace import detectFace
 from getFeatures import getFeatures
-from IPython import get_ipython
 from estimateAllTranslation import estimateAllTranslation
-from estimateFeatureTranslation import estimateFeatureTranslation
 from applyGeometricTransformation import applyGeometricTransformation
 
 
@@ -35,7 +33,7 @@ x,y=getFeatures(gray,bbox)
 
 
 #drawing
-plt.imshow(cv2.cvtColor(frameSet[1], cv2.COLOR_BGR2RGB))
+plt.imshow(cv2.cvtColor(frameSet[0], cv2.COLOR_BGR2RGB))
 [r1b,c1b,d1b]=np.asarray(bbox.shape)
 for i in range(r1b):
     b=bbox[i,:,:]
@@ -73,6 +71,7 @@ for k in range(1,15):
     x=Xs
     y=Ys
     bbox=newbbox
+    
     
 [height,width,layer]=np.asarray(newFrameSet[0].shape)
 outPut=cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'MP4V'),5,(width,height))
