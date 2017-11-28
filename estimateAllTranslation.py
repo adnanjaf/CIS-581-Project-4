@@ -26,34 +26,34 @@ def estimateAllTranslation(startXs, startYs, img1, img2):
   [row,col]=np.asarray(startXs.shape)
   newXs=np.ones([row,col])*-1
   newYs=np.ones([row,col])*-1
-  Ix=np.array([[1,0,-1],[2,0,-2],[1,0,-1]])
-  Iy=np.array([[1,2,1],[0,0,0],[-1,-2,-1]])
+  Ix=np.array([[1.,0.,-1.],[1.,0,-1.],[1.,0,-1.]])/6.0
+  Iy=np.array([[1.,1.,1.],[0,0,0],[-1.,-1.,-1.]])/6.0
   
 #  Ix=np.array([[-1,1],[-1,1]])
 #  Iy=np.array([[-1,-1],[1,1]])
-  gray1=cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
-  gray2=cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+  gray1=cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY).astype(np.double)
+  gray2=cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY).astype(np.double)
 #  gradx1=cv2.Sobel(gray1,cv2.CV_64F,1,0,ksize=5)
 #  abs_gradx1 = np.absolute(gradx1)
 #  gradx1 = np.uint8(abs_gradx1)
   gradx1=scipy.signal.fftconvolve(gray1,Ix,mode='same')
-  gradx1=gradx1.astype(np.uint8)
+#  gradx1=gradx1.astype(np.uint8)
   
   grady1=scipy.signal.fftconvolve(gray1,Iy,mode='same')
-  grady1=grady1.astype(np.uint8)
+#  grady1=grady1.astype(np.uint8)
 #  cv2.imshow('fig2',grady1)
 #  cv2.waitKey(0)
 #  cv2.destroyAllWindows()
   gradx2=scipy.signal.fftconvolve(gray2,Ix,mode='same')
-  gradx2=gradx2.astype(np.uint8)
+#  gradx2=gradx2.astype(np.uint8)
   grady2=scipy.signal.fftconvolve(gray2,Iy,mode='same')
-  grady2=grady2.astype(np.uint8) 
+#  grady2=grady2.astype(np.uint8) 
   gray1smooth=scipy.ndimage.filters.gaussian_filter(gray1, 1)
   gray2smooth=scipy.ndimage.filters.gaussian_filter(gray2, 1)
 #  Ix=(gradx1+gradx2)/2
 #  Iy=(grady1+grady2)/2
-  Ixmap=gradx1
-  Iymap=grady1
+  Ixmap=(gradx1+gradx2)/2.0
+  Iymap=(grady1+grady2)/2.0
   Itmap=gray2smooth-gray1smooth
   ############################
   [ri,ci]=np.asarray(gray1.shape)
