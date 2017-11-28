@@ -18,7 +18,7 @@ from applyGeometricTransformation import applyGeometricTransformation
 
 frameSet=[]
 newFrameSet=[]
-video=cv2.VideoCapture('MarquesBrownlee.mp4')
+video=cv2.VideoCapture('TheMartian.mp4')
 tf= True 
 
 while tf:

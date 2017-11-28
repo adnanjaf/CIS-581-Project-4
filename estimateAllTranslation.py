@@ -26,8 +26,8 @@ def estimateAllTranslation(startXs, startYs, img1, img2):
   [row,col]=np.asarray(startXs.shape)
   newXs=np.ones([row,col])*-1
   newYs=np.ones([row,col])*-1
-  Ix=np.array([[1.,0.,-1.],[1.,0,-1.],[1.,0,-1.]])/6.0
-  Iy=np.array([[1.,1.,1.],[0,0,0],[-1.,-1.,-1.]])/6.0
+  Ix=np.array([[1.,0.,-1.],[2.,0,-2.],[1.,0,-1.]])/8.0
+  Iy=np.array([[1.,2.,1.],[0,0,0],[-1.,-2.,-1.]])/8.0
   
 #  Ix=np.array([[-1,1],[-1,1]])
 #  Iy=np.array([[-1,-1],[1,1]])

@@ -31,7 +31,7 @@ def getFeatures(img, bbox):
     for i in range(row):
         currentFace=img[bbox[i,0,1]:bbox[i,2,1],bbox[i,0,0]:bbox[i,1,0]]
         currentFace=corner_harris(currentFace)
-        idx=(currentFace>0.05)
+        idx=(currentFace>0.0005)
         currentFace=currentFace*idx
         localM=scipy.ndimage.filters.maximum_filter(currentFace,footprint=neighbors)
         msk=(currentFace==localM)
