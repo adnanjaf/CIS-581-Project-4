@@ -41,16 +41,16 @@ def estimateFeatureTranslation(startX, startY, Ixmap, Iymap, Itmap):
 #  interFIt=scipy.interpolate.interp2d(xv, yv, It, kind='linear')
 #  interFItgrad=scipy.interpolate.interp2d(xv, yv, Itgrad, kind='linear')
   
-  xsamLin=np.arange(startX-5,startX+5,1)
-  ysamLin=np.arange(startY-5,startY+5,1)
+  xsamLin=np.arange(startX-8,startX+8,1)
+  ysamLin=np.arange(startY-8,startY+8,1)
   IxVal=Ixmap(xsamLin,ysamLin)
   IyVal=Iymap(xsamLin,ysamLin)
   ItVal=Itmap(xsamLin,ysamLin)
 #  ItgradVal=interFItgrad(xsamLin,ysamLin)
   
   lfM=np.array([[np.sum(IxVal*IxVal),np.sum(IxVal*IyVal)],[np.sum(IxVal*IyVal),np.sum(IyVal*IyVal)]])
-  rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])*-1
-  disp=np.linalg.solve(lfM,rtM)
+  rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
+  disp=np.linalg.solve(lfM,-rtM)
   ubright=disp[0,0]
   vbright=disp[1,0]
 #  newX=startX+ubright

@@ -24,8 +24,8 @@ def estimateAllTranslation(startXs, startYs, img1, img2):
   from estimateFeatureTranslation import estimateFeatureTranslation 
   
   [row,col]=np.asarray(startXs.shape)
-  newXs=np.ones([row,col])
-  newYs=np.ones([row,col])
+  newXs=np.ones([row,col])*-1
+  newYs=np.ones([row,col])*-1
   Ix=np.array([[1,0,-1],[2,0,-2],[1,0,-1]])
   Iy=np.array([[1,2,1],[0,0,0],[-1,-2,-1]])
   
@@ -47,14 +47,14 @@ def estimateAllTranslation(startXs, startYs, img1, img2):
   gradx2=scipy.signal.fftconvolve(gray2,Ix,mode='same')
   gradx2=gradx2.astype(np.uint8)
   grady2=scipy.signal.fftconvolve(gray2,Iy,mode='same')
-  grady2=grady2.astype(np.uint8)
-  gray1smooth=scipy.ndimage.filters.gaussian_filter(gray1, 5)
-  gray2smooth=scipy.ndimage.filters.gaussian_filter(gray2, 5)
+  grady2=grady2.astype(np.uint8) 
+  gray1smooth=scipy.ndimage.filters.gaussian_filter(gray1, 1)
+  gray2smooth=scipy.ndimage.filters.gaussian_filter(gray2, 1)
 #  Ix=(gradx1+gradx2)/2
 #  Iy=(grady1+grady2)/2
   Ixmap=gradx1
   Iymap=grady1
-  Itmap=gray2-gray1
+  Itmap=gray2smooth-gray1smooth
   ############################
   [ri,ci]=np.asarray(gray1.shape)
   xlin=np.arange(0,ci)

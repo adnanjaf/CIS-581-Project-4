@@ -40,7 +40,7 @@ for i in range(r1b):
     xloc=x[:,i]
     yloc=y[:,i]
     facebb=matplotlib.patches.Polygon(b,closed=True,fill=False)
-    features=plt.plot(xloc,yloc,'w+')
+    features=plt.plot(xloc,yloc,'w.',ms=1)
     plt.gca().add_patch(facebb)
     #plt.fig(bbox_inches='tight',pad_inches=0)
 plt.axis('off')
@@ -51,7 +51,6 @@ newFrameSet.append(img);
 
 #getting features and transforming 
 for k in range(1,15):
-    
     newXs,newYs =estimateAllTranslation(x,y,frameSet[k-1],frameSet[k])
     Xs,Ys,newbbox=applyGeometricTransformation(x,y,newXs,newYs,bbox)
     plt.imshow(cv2.cvtColor(frameSet[k], cv2.COLOR_BGR2RGB))
@@ -61,7 +60,7 @@ for k in range(1,15):
         xloc=Xs[:,j]
         yloc=Ys[:,j]
         facebb=matplotlib.patches.Polygon(b,closed=True,fill=False)
-        features=plt.plot(xloc,yloc,'w+')
+        features=plt.plot(xloc,yloc,'w.',ms=1)
         plt.gca().add_patch(facebb)
     plt.axis('off')
     plt.savefig("temp.png",dpi=300,bbox_inches="tight")
