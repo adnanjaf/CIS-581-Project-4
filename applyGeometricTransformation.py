@@ -51,8 +51,13 @@ def applyGeometricTransformation(startX, startY, newXs, newYs, bbox):
       diff=np.vstack((newX,newY))-newCoord[0:2,:]
       diff=diff*diff
       dist=diff[0,:]+diff[1,:]
-#      newX=newX[dist<=16]
-#      newY=newY[dist<=16]
+      
+      newX=newX[dist<=16]
+      newY=newY[dist<=16]
+      initX=initX[dist<=16]
+      initY=initY[dist<=16]
+      t.estimate(np.matrix.transpose(np.vstack((initX,initY))),np.matrix.transpose(np.vstack((newX,newY))))
+      
       if len(newX)>numPt:
           numPt=len(newX)
       xlist.append(newX)

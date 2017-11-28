@@ -18,13 +18,12 @@ from applyGeometricTransformation import applyGeometricTransformation
 
 frameSet=[]
 newFrameSet=[]
-video=cv2.VideoCapture('TheMartian.mp4')
+video=cv2.VideoCapture('TyrionLannister.mp4')
 tf= True 
-
+plt.ioff()
 while tf:
     tf,frame=video.read()
     frameSet.append(frame)
-    
 frameSet=frameSet[:-1]
 
 bbox=detectFace(frameSet[0])
@@ -42,7 +41,6 @@ for i in range(r1b):
     facebb=matplotlib.patches.Polygon(b,closed=True,fill=False)
     features=plt.plot(xloc,yloc,'w.',ms=1)
     plt.gca().add_patch(facebb)
-    #plt.fig(bbox_inches='tight',pad_inches=0)
 plt.axis('off')
 plt.savefig("temp.png",dpi=300,bbox_inches="tight")
 img=cv2.imread("temp.png")
@@ -50,7 +48,7 @@ plt.close()
 newFrameSet.append(img);
 
 #getting features and transforming 
-for k in range(1,15):
+for k in range(1,len(frameSet)):
     newXs,newYs =estimateAllTranslation(x,y,frameSet[k-1],frameSet[k])
     Xs,Ys,newbbox=applyGeometricTransformation(x,y,newXs,newYs,bbox)
     plt.imshow(cv2.cvtColor(frameSet[k], cv2.COLOR_BGR2RGB))
@@ -71,16 +69,11 @@ for k in range(1,15):
     y=Ys
     bbox=newbbox
     
-    
 [height,width,layer]=np.asarray(newFrameSet[0].shape)
-outPut=cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'MP4V'),5,(width,height))
+outPut=cv2.VideoWriter('output.mp4',cv2.VideoWriter_fourcc(*'MP4V'),30,(width,height))
 for m in range (len(newFrameSet)):
     outPut.write(newFrameSet[m].astype('uint8'))
     cv2.destroyAllWindows()
 outPut.release()
 
     
-#plt.imshow(grad, cmap='gray')
-#cv2.imshow('fig1',frameSet[0])
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()

@@ -21,55 +21,34 @@ def estimateFeatureTranslation(startX, startY, Ixmap, Iymap, Itmap):
   #TODO: Your code here
   import numpy as np
 #  import scipy
-  
- 
-#  Itgrad=img2grad-img1grad
-  
-#  It=img2-img1
-#  centerX=int(startX)
-#  centerY=int(startY)
-#  It=It[centerY-6:centerY+6,centerX-6:centerX+6]
-#  Ix=Ix[centerY-6:centerY+6,centerX-6:centerX+6]
-#  Iy=Iy[centerY-6:centerY+6,centerX-6:centerX+6]
-#  Itgrad=Itgrad[centerY-6:centerY+6,centerX-6:centerX+6]
-#  [row,col]=np.asarray(img1.shape)
-#  xlin=np.arange(centerX-6,centerX+6,1)
-#  ylin=np.arange(centerY-6,centerY+6,1)
-#  xv, yv = np.meshgrid(xlin, ylin, sparse=False, indexing='xy')
-#  interFIx=scipy.interpolate.interp2d(xv, yv, Ix, kind='linear')
-#  interFIy=scipy.interpolate.interp2d(xv, yv, Iy, kind='linear')
-#  interFIt=scipy.interpolate.interp2d(xv, yv, It, kind='linear')
-#  interFItgrad=scipy.interpolate.interp2d(xv, yv, Itgrad, kind='linear')
-  
   xsamLin=np.arange(startX-5.0,startX+5.0,1.0)
   ysamLin=np.arange(startY-5.0,startY+5.0,1.0)
   IxVal=Ixmap(xsamLin,ysamLin)
   IyVal=Iymap(xsamLin,ysamLin)
   ItVal=Itmap(xsamLin,ysamLin)
-#  ItgradVal=interFItgrad(xsamLin,ysamLin)
   
   lfM=np.array([[np.sum(IxVal*IxVal),np.sum(IxVal*IyVal)],[np.sum(IxVal*IyVal),np.sum(IyVal*IyVal)]])
   rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
   disp=np.linalg.solve(lfM,-rtM)
   ubright=disp[0,0]
   vbright=disp[1,0]
-#  newX=startX+ubright
-#  newY=startY+vbright
-#  ItVal=Itmap(xsamLin+ubright,ysamLin+vbright)
-#  rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
-#  disp=np.dot(inverse,rtM)
-#  ubright=disp[0,0]
-#  vbright=disp[1,0]
-#  lfMgrad=np.array([[np.sum(IxVal*IxVal),np.sum(IxVal*IyVal)],[np.sum(IxVal*IyVal),np.sum(IyVal*IyVal)]])
-#  rtMgrad=np.array([[np.sum(IxVal*ItgradVal)],[np.sum(IyVal*ItgradVal)]])
-#  inverse=np.linalg.inv(lfMgrad)
-#  disp=np.dot(inverse,-1*rtMgrad)
-#  ugrad=disp[0,0]
-#  vgrad=disp[1,0]
-#  IxVal=interFIx(np.ravel(xv))
-#  IyVal=interFIy(np.ravel(xv))
+  
   newX=startX+ubright
   newY=startY+vbright
-#  print ubright 
-#  print vbright
+  
+#  k=1
+#  while k<=5:
+#       xsamLin=np.arange(newX-5.0, newX+5.0,1.0)
+#       ysamLin=np.arange(newY-5.0, newY+5.0,1.0)
+#       ItVal=Itmap(xsamLin,ysamLin)
+#       rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
+#       disp=np.linalg.solve(lfM,-rtM)
+#       ubright=disp[0,0]
+#       vbright=disp[1,0]
+#       newX=newX+ubright
+#       newY=newY+vbright
+#       k=k+1
+#       if (ubright*ubright+vbright*vbright)<0.001:
+#           break
+       
   return newX, newY
