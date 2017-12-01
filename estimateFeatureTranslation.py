@@ -20,20 +20,19 @@
 def estimateFeatureTranslation(startX, startY, Ixmap, Iymap, Itmap):
   #TODO: Your code here
   import numpy as np
-#  import scipy
-  xsamLin=np.arange(startX-5.0,startX+5.0,1.0)
-  ysamLin=np.arange(startY-5.0,startY+5.0,1.0)
-  IxVal=Ixmap(xsamLin,ysamLin)
+  xsamLin=np.arange(startX-5.0,startX+5.0,1.0)#define x coordinates of query points
+  ysamLin=np.arange(startY-5.0,startY+5.0,1.0)#define y coordinates of query points
+  IxVal=Ixmap(xsamLin,ysamLin)#query values from gradient maps
   IyVal=Iymap(xsamLin,ysamLin)
   ItVal=Itmap(xsamLin,ysamLin)
   
   lfM=np.array([[np.sum(IxVal*IxVal),np.sum(IxVal*IyVal)],[np.sum(IxVal*IyVal),np.sum(IyVal*IyVal)]])
-  rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])
-  disp=np.linalg.solve(lfM,-rtM)
-  ubright=disp[0,0]
-  vbright=disp[1,0]
+  rtM=np.array([[np.sum(IxVal*ItVal)],[np.sum(IyVal*ItVal)]])#define right and left hand side of the linear system of equation
+  disp=np.linalg.solve(lfM,-rtM)#solve linear system of equation 
+  ubright=disp[0,0]#extract horizontal movement 
+  vbright=disp[1,0]#extract vertical movement 
   
-  newX=startX+ubright
+  newX=startX+ubright#compute new x and y coordinates
   newY=startY+vbright
   
 #  k=1
